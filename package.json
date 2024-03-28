@@ -8,7 +8,7 @@
     "test-notes-memory": "cross-env NOTES_MODEL=memory mocha test-model",
     "test-level": "cross-env NOTES_MODEL=level mocha test-model",
     "test-notes-fs": "cross-env NOTES_MODEL=fs mocha test-model",
-    "pretest-notes-sqlite3": "rm -f chap13.sqlite3 && sqlite3 chap13.sqlite3 --init ../notey-notes/models/schema-sqlite3.sql <NUL",
+    "pretest-notes-sqlite3": "sqlite3 chap13.sqlite3 --init ../notey-notes/models/schema-sqlite3.sql <NUL",
     "test-notes-sqlite3": "cross-env NOTES_MODEL=sqlite3 SQLITE_FILE=chap13.sqlite3 mocha test-model",
     "test-notes-sequelize-sqlite": "cross-env NOTES_MODEL=sequelize SEQUELIZE_CONNECT=./sequelize-sqlite.yaml mocha test-model"
   },
