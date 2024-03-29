@@ -73,4 +73,51 @@ describe("Model Test", function () {
       }
     });
   });
+
+  describe("read note", function () {
+    before(async function () {
+      await store.create("n1", "Note 1", "Note 1");
+    });
+
+    it("should have proper note", async function () {
+      const note = await store.read("n1");
+
+      assert.exists(note);
+
+      assert.deepEqual(
+        {
+          key: note.key,
+          title: note.title,
+          body: note.body,
+        },
+        {
+          key: "n1",
+          title: "Note 1",
+          body: "Note 1",
+        }
+      );
+    });
+
+    it("Unknown note should fail", async function () {
+      try {
+        const note = await store.read("badkey12");
+
+        assert.notExists(note);
+
+        throw new Error("should not get here");
+      } catch (err) {
+        // An error is expected, so it is an error if
+        // the 'should not get here' error is thrown
+        assert.notEqual(err.message, "should not get here");
+      }
+    });
+
+    after(async function () {
+      const keyz = await store.keylist();
+
+      for (let key of keyz) {
+        await store.destroy(key);
+      }
+    });
+  });
 });
